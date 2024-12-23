@@ -12,7 +12,7 @@ exports.addHotel = async (req, res) => {
 
     try {
         const logo = req.file.location; // Get the S3 file URL
-        const qrCodeData = `${process.env.FRONTEND_URL}/hotel/${name.replace(/ /g, '-')}`;
+        const qrCodeData = `${process.env.LOCAL_URL}/hotel/${name.replace(/ /g, '-')}`;
         const qrCodeImage = await QRCode.toDataURL(qrCodeData);
 
         const hotel = new Hotel({ name, address, logo, qrCode: qrCodeImage });
