@@ -55,19 +55,8 @@ exports.checkGuestAdminAccess = async (req, res, next) => {
 
 // Fetch all guests for a specific hotel (only accessible by guest_admin)
 exports.getAllGuests = async (req, res) => {
-  const timeout = 5000; // Timeout in milliseconds (e.g., 5000ms = 5 seconds)
-
   try {
-    // Set a global timeout for mongoose queries
-    const queryTimeout = mongoose.connection.client.getEngine().getRequestTimeout();
-
-    // Set timeout only for this query
-    mongoose.connection.client.setTimeout(timeout);
-
     const guests = await Guest.find().populate("hotelId"); 
-
-    // Reset timeout to default after query
-    mongoose.connection.client.setTimeout(queryTimeout);
 
     const guestData = guests.map((guest) => ({
       _id: guest._id,
@@ -86,6 +75,7 @@ exports.getAllGuests = async (req, res) => {
     res.status(500).json({ message: "Server Error" });
   }
 };
+
 
 
 exports.editGuest = async (req, res) => {
