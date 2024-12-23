@@ -13,14 +13,14 @@ const GuestRoutes = require('./routes/GuestRoute');
 const app = express ();
 const cors = require("cors");
 
-const allowedOrigins = [
-    'https://guest-onboarding-frontend-4dc1t9qhr-dhammashilas-projects.vercel.app',
-    "https://guest-onboarding-frontend.vercel.app",
-    // Add any other allowed origins here
-  ];
+// const allowedOrigins = [
+//     'https://guest-onboarding-frontend-4dc1t9qhr-dhammashilas-projects.vercel.app',
+//     "https://guest-onboarding-frontend.vercel.app",
+//     // Add any other allowed origins here
+//   ];
   
   app.use(cors({ 
-    origin: allowedOrigins,
+    origin: "https://guest-onboarding-frontend-pwvtdzrje-dhammashilas-projects.vercel.app",
     methods: ['GET', 'HEAD', 'PUT', 'POST', 'DELETE'], // Allow requests from React frontend
     allowedHeaders: ['Content-Type', 'Authorization'], // Allow these headers
     credentials: true, // Allow cookies
