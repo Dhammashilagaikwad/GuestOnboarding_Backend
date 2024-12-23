@@ -5,22 +5,23 @@ const Hotel = require('../models/AddHotelModel');
 
 exports.addHotel = async (req, res) => {
     const { name, address } = req.body;
-    console.log(req.body); // Log the body to check if 'name' and 'address' are passed correctly
-    console.log(req.file); // Log the file to check if it's being uploaded correctly
-    
+
     if (!name || !address || !req.file) {
         return res.status(400).json({ message: 'All fields are required (name, address, logo).' });
     }
 
     try {
-        const logo = `/hotel-logos/${req.file.filename}`; 
-        const qrCodeData = `${process.env.FRONTEND_URL}/hotel/${name.replace(/ /g, '-')}`; 
-        const qrCodeImage = await QRCode.toDataURL(qrCodeData); 
+        const logo = req.file.location; // Get the S3 file URL
+        const qrCodeData = `${process.env.FRONTEND_URL}/hotel/${name.replace(/ /g, '-')}`;
+        const qrCodeImage = await QRCode.toDataURL(qrCodeData);
 
         const hotel = new Hotel({ name, address, logo, qrCode: qrCodeImage });
         await hotel.save();
 
-        res.status(201).json({ message: 'Hotel added successfully', hotel: { ...hotel.toObject(), qrCodeUrl: qrCodeImage } });
+        res.status(201).json({
+            message: 'Hotel added successfully',
+            hotel: { ...hotel.toObject(), qrCodeUrl: qrCodeImage },
+        });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Error adding hotel.' });
