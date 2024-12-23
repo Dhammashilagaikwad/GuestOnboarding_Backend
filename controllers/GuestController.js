@@ -56,7 +56,9 @@ exports.checkGuestAdminAccess = async (req, res, next) => {
 // Fetch all guests for a specific hotel (only accessible by guest_admin)
 exports.getAllGuests = async (req, res) => {
   try {
-    const guests = await Guest.find().populate("hotelId"); 
+    const guests = await Guest.find()
+    .populate("hotelId", "name")  // Only get hotel name
+    .limit(100); 
 
     const guestData = guests.map((guest) => ({
       _id: guest._id,
