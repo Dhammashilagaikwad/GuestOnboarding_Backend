@@ -14,7 +14,8 @@ const app = express ();
 const cors = require("cors");
 
 app.use(cors({ 
-    origin: "http://localhost:3000", // Allow requests from React frontend
+    origin: "https://guest-onboarding-frontend.vercel.app",
+     methods: ['GET', 'HEAD', 'PUT', 'POST', 'DELETE'], // Allow requests from React frontend
     credentials: true // Allow cookies
 }));
 
@@ -35,7 +36,8 @@ app.use('/api/guests',GuestRoutes)
 app.get('/',(req,res) => {
     res.status(200).json({status:true, message:"your msg is submitted"});
 });
-const PORT = config.port
 
+
+const PORT = process.env.PORT || config.port; // Use dynamic port for deployment
 app.listen(PORT, () => 
   console.log(`Server is running on port ${PORT}`));
