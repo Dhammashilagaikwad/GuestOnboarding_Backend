@@ -16,7 +16,7 @@ const router = express.Router();
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const uploadPath = path.join(__dirname, '..', 'public', 'hotel-logos');
+    const uploadPath = '/tmp';
     cb(null, uploadPath); 
   },
   filename: (req, file, cb) => {

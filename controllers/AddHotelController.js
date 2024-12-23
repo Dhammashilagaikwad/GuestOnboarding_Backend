@@ -5,7 +5,9 @@ const Hotel = require('../models/AddHotelModel');
 
 exports.addHotel = async (req, res) => {
     const { name, address } = req.body;
-
+    console.log(req.body); // Log the body to check if 'name' and 'address' are passed correctly
+    console.log(req.file); // Log the file to check if it's being uploaded correctly
+    
     if (!name || !address || !req.file) {
         return res.status(400).json({ message: 'All fields are required (name, address, logo).' });
     }
