@@ -8,7 +8,7 @@
     ],
     "functions": {
     "api/index.js": {
-      "timeout": 50
+      "timeout": 60
     }
   },
     "routes": [
